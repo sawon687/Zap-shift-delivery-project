@@ -1,12 +1,24 @@
 import React from 'react';
 import Logo from './Logo/Logo';
 import { NavLink } from 'react-router';
+import useAuth from '../customeHook/useAuth';
 
 const Navbar = () => {
+  const {user,signOutuser}=useAuth()
+  console.log(user)
+  const logOutHandle=()=>{
+     signOutuser().then(res=>{
+      console.log(res)
+      alert('user signout')
+     }).catch(error=>{
+      console.log(error)
+     })
+  }
   const links=<>
-   <li><NavLink to=''>Services</NavLink></li>
-   <li><NavLink to='/Coverage'>Coverage</NavLink></li>
-   <li><NavLink to=''>About Us</NavLink></li>
+   <li><NavLink className={({isActive})=> isActive? 'bg-[#CAEB66] rounded-full':''} to=''>Services</NavLink></li>
+   <li><NavLink className={({isActive})=> isActive? 'bg-[#CAEB66] rounded-full':''} to='/Coverage'>Coverage</NavLink></li>
+   <li><NavLink className={({isActive})=> isActive? 'bg-[#CAEB66] rounded-full':''} to=''>About Us</NavLink></li>
+   <li><NavLink className={({isActive})=> isActive? 'bg-[#CAEB66] rounded-full':''} to='/SendParcel'>Send Parcel</NavLink></li>
   </>
     return (
         <div className='w-7xl mx-auto pt-5  '>
@@ -30,7 +42,9 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    {
+      user?<a onClick={logOutHandle} className="btn">Log out</a>:<NavLink to='/Login' className="btn">sign In</NavLink>
+    }
   </div>
 </div> 
         </div>

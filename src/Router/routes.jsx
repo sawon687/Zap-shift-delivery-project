@@ -6,6 +6,9 @@ import Coverage from "../pages/Coverage/Coverage";
 import MainLayout from "../Layout/MainLayout";
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+import SendParcel from "../pages/SendParcel/SendParcel";
+import axios from "axios";
 
 const router=createBrowserRouter([
 
@@ -22,7 +25,14 @@ const router=createBrowserRouter([
                 path:'/Coverage',
                 Component:Coverage,
                 
+            },
+            {
+                path:'/SendParcel',
+                Component:SendParcel,
+                loader:()=>axios('warehouses.json').then(res=>res.data)
+                
             }
+            
         ]
     },
     {
@@ -32,7 +42,11 @@ const router=createBrowserRouter([
          {
             path:'Login',
             Component:Login
-         }
+         },
+         {
+            path:'Register',
+            Component:Register
+         },
 
        ]
     }
